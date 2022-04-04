@@ -8,13 +8,17 @@ DO_TOKENIZE=""
 # Tokenize does not seem to give any duplication hits for dummy data? Does it work?
 # DO_TOKENIZE="--tokenize"
 
-LEN_THRESHOLD=10  # paper uses 50 (or 100 for tokenized)
+LEN_THRESHOLD=15  # paper uses 50 (or 100 for tokenized)
 NUM_THREADS=8
 
 TMP_CACHE_DIR=/tmp/cache
 
+mkdir -p tmp
+mkdir -p /tmp/cache
+
 rm $DATA_OUT_DIR/*
 rm $TMP_CACHE_DIR/*
+rm tmp/*
 
 ### DO STUFF ###
 
@@ -42,6 +46,6 @@ cargo run collect --data-file $DATA_OUT_DIR/${DATASET_NAME}.train --cache-dir $T
 # exit
 # $TMP_CACHE_DIR/${DATASET_NAME}.train.remove.byterange
 
-python3 scripts/finish_single_file.py $DATA_OUT_DIR/${DATASET_NAME}.train \
+python3 scripts/finish_single_file_new.py $DATA_OUT_DIR/${DATASET_NAME}.train \
           $DATA_OUT_DIR/${DATASET_NAME}.train.remove \
-          $DATA_OUT_DIR/${DATASET_NAME}.train.dedup
+          $DATA_OUT_DIR/${DATASET_NAME}.train.dedup.jsonl

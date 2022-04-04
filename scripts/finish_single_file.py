@@ -11,8 +11,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import os
 import sys
 import json
+import numpy as np
 
 
 def bytes_to_jsonl(loaded_bytes):
@@ -41,6 +43,11 @@ for line in fin:
 for line in fin:
     remove.append(list(map(int, line.split())))
 remove = remove[::-1]
+
+# Lengths of original docs
+sizes = np.frombuffer(open(original + ".size", "rb").read(), dtype=np.uint64)
+print(sizes)
+exit()
 
 ds = open(original, "rb")
 # new_ds = open(deduped,"wb")
